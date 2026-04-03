@@ -1,11 +1,11 @@
 {
   "name": "@aqueduct-ai/sdk",
   "version": "0.1.0",
-  "description": "OpenAPI client for @aqueduct-ai/sdk",
-  "author": "OpenAPI-Generator",
+  "description": "Aqueduct AI Gateway TypeScript/JavaScript SDK",
+  "author": "Aqueduct Engineering <engineering@aqueduct.ai>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pjurban-TOC/aqueduct-js-sdk.git"
+    "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
   },
   "main": "./cjs/index.js",
   "types": "./types/index.d.ts",
@@ -13,10 +13,10 @@
   "sideEffects": false,
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm",
-    "prepare": "npm run build",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "vitest run"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
