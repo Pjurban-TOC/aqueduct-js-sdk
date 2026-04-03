@@ -1,0 +1,40 @@
+{
+  "name": "@aqueduct-ai/sdk",
+  "version": "0.1.0",
+  "description": "OpenAPI client for @aqueduct-ai/sdk",
+  "author": "OpenAPI-Generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pjurban-TOC/aqueduct-js-sdk.git"
+  },
+  "main": "./cjs/index.js",
+  "types": "./types/index.d.ts",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm",
+    "prepare": "npm run build",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.2"
+  },
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js",
+      "types": "./types/index.d.ts"
+    }
+  },
+  "files": [
+    "cjs",
+    "esm",
+    "types"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
