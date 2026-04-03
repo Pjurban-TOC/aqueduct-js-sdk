@@ -1,0 +1,39 @@
+# =============================================================================
+# Publish JavaScript SDK to npm via OIDC trusted publishing
+# =============================================================================
+# Triggered on GitHub Release. Requires:
+#   - Trusted Publisher on npmjs.com: org=Pjurban-TOC, repo=aqueduct-js-sdk,
+#     workflow=publish.yml, environment=npm-publish
+#   - Node >= 22.14.0, npm >= 11.5.1 (already met by ubuntu-latest + Node 22)
+#   - DO NOT set NODE_AUTH_TOKEN — classic npm tokens permanently revoked Dec 9 2025
+# =============================================================================
+
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    environment:
+      name: npm-publish
+      url: https://www.npmjs.com/package/@aqueduct-ai/sdk
+    permissions:
+      id-token: write   # required for OIDC token exchange with npm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+          # DO NOT set NODE_AUTH_TOKEN — causes token auth fallback, breaks OIDC
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish
+        # Provenance attestations generated automatically with trusted publishing
